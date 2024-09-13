@@ -50,6 +50,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+
                     MyScreen()
                 }
             }
@@ -60,7 +61,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyScreen() {
     var text by remember { mutableStateOf("") }
-    var inputText by remember { mutableStateOf("") }
+    var inputNama by remember { mutableStateOf("") }
+    var inputNIM by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -91,6 +93,7 @@ fun MyScreen() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
+        // Input Nama
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -106,10 +109,45 @@ fun MyScreen() {
             Spacer(modifier = Modifier.width(12.dp))
 
             OutlinedTextField(
-                value = inputText,
-                onValueChange = { inputText = it },
+                value = inputNama,
+                onValueChange = { inputNama = it },
                 label = { Text("Masukkan nama", color = Color.Black) },
                 placeholder = { Text("Contoh: John Doe", color = Color.Gray) },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                shape = RoundedCornerShape(12.dp),
+                textStyle = androidx.compose.ui.text.TextStyle(
+                    fontFamily = FontFamily.Cursive,
+                    fontSize = 20.sp,
+                    color = Color.DarkGray
+                )
+            )
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Input NIM
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.AccountBox,
+                contentDescription = "Icon NIM",
+                tint = Color.Green,
+                modifier = Modifier.size(50.dp)
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+
+            OutlinedTextField(
+                value = inputNIM,
+                onValueChange = { if (it.all { char -> char.isDigit()}){ inputNIM=it}},
+                label = { Text("Masukkan NIM", color = Color.Black) },
+                placeholder = { Text("Contoh: 12345678", color = Color.Gray) },
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
@@ -127,9 +165,9 @@ fun MyScreen() {
 
         Button(
             onClick = {
-                text = inputText
+                text = "Nama: $inputNama\nNIM: $inputNIM"
             },
-            enabled = inputText.isNotEmpty(),
+            enabled = inputNama.isNotEmpty() && inputNIM.isNotEmpty(),
             shape = CircleShape,
             modifier = Modifier
                 .fillMaxWidth()
