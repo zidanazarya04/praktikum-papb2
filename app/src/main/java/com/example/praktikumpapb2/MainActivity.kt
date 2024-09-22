@@ -4,31 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -145,7 +127,7 @@ fun MyScreen() {
 
             OutlinedTextField(
                 value = inputNIM,
-                onValueChange = { if (it.all { char -> char.isDigit()}){ inputNIM=it}},
+                onValueChange = { if (it.all { char -> char.isDigit()}){ inputNIM = it }},
                 label = { Text("Masukkan NIM", color = Color.Black) },
                 placeholder = { Text("Contoh: 12345678", color = Color.Gray) },
                 modifier = Modifier
@@ -163,18 +145,24 @@ fun MyScreen() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
+        // Warna tombol yang berubah
+        val isInputValid = inputNama.isNotEmpty() && inputNIM.isNotEmpty()
+        val buttonColor by animateColorAsState(
+            targetValue = if (isInputValid) Color.Blue else Color.Gray, label = ""
+        )
+
         Button(
             onClick = {
                 text = "Nama: $inputNama\nNIM: $inputNIM"
             },
-            enabled = inputNama.isNotEmpty() && inputNIM.isNotEmpty(),
+            enabled = isInputValid,
             shape = CircleShape,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 48.dp)
                 .height(60.dp),
-            colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF6200EE), // Warna latar belakang tombol
+            colors = ButtonDefaults.buttonColors(
+                containerColor = buttonColor, // Warna tombol dinamis
                 contentColor = Color.White
             ),
         ) {
@@ -182,7 +170,7 @@ fun MyScreen() {
                 text = "Submit",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFFFFD700), // Warna teks tombol diubah menjadi Gold
+                color = Color.White, // Teks tetap berwarna putih
                 modifier = Modifier.padding(vertical = 4.dp)
             )
         }
