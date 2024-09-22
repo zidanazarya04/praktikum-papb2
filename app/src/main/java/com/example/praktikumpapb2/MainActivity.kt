@@ -32,7 +32,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
                     MyScreen()
                 }
             }
@@ -127,7 +126,7 @@ fun MyScreen() {
 
             OutlinedTextField(
                 value = inputNIM,
-                onValueChange = { if (it.all { char -> char.isDigit()}){ inputNIM = it }},
+                onValueChange = { if (it.all { char -> char.isDigit() }) { inputNIM = it } },
                 label = { Text("Masukkan NIM", color = Color.Black) },
                 placeholder = { Text("Contoh: 12345678", color = Color.Gray) },
                 modifier = Modifier
@@ -155,7 +154,7 @@ fun MyScreen() {
             onClick = {
                 text = "Nama: $inputNama\nNIM: $inputNIM"
             },
-            enabled = isInputValid,
+            enabled = isInputValid, // Tombol hanya aktif jika input valid
             shape = CircleShape,
             modifier = Modifier
                 .fillMaxWidth()
