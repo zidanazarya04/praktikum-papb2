@@ -126,7 +126,7 @@ fun MyScreen() {
 
             OutlinedTextField(
                 value = inputNIM,
-                onValueChange = { if (it.all { char -> char.isDigit() }) { inputNIM = it } },
+                onValueChange = { if (it.all { char -> char.isDigit() }) { inputNIM = it }},
                 label = { Text("Masukkan NIM", color = Color.Black) },
                 placeholder = { Text("Contoh: 12345678", color = Color.Gray) },
                 modifier = Modifier
@@ -154,7 +154,7 @@ fun MyScreen() {
             onClick = {
                 text = "Nama: $inputNama\nNIM: $inputNIM"
             },
-            enabled = isInputValid, // Tombol hanya aktif jika input valid
+            enabled = isInputValid,
             shape = CircleShape,
             modifier = Modifier
                 .fillMaxWidth()
